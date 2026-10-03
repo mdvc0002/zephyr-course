@@ -1,0 +1,6 @@
+board:
+  name: my_board
+  full_name: Nucleo F446RE. My board from scratch
+  vendor: iomico
+  socs:
+    - name: stm32f446xx
