@@ -5,3 +5,4 @@
         range 100 2000
 
 source "Kconfig.zephyr"
+rsource "drivers/our_driver/Kconfig"
