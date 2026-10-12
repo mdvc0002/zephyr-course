@@ -3,14 +3,24 @@
 #include <zephyr/logging/log.h>
 #include <zephyr/drivers/gpio.h>
 #include <errno.h>
+#include "our_driver.h"
 
 #define DT_DRV_COMPAT our_driver
 
 #define LED_NODE DT_ALIAS(app_led)
 
 static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED_NODE, gpios);
+static struct our_driver_data data;
 
 LOG_MODULE_REGISTER(our_driver, LOG_LEVEL_INF);
+
+int my_extension_api(const struct device *dev){
+    struct our_driver_data *dev_data = dev->data;
+    int dev_counter;
+    dev_data->counter++;
+    dev_counter = dev_data->counter;
+    return dev_counter;
+}
 
 static int channel_get_my_impl(const struct device *dev,
 				    enum sensor_channel chan,
@@ -43,5 +53,5 @@ static int init(const struct device *dev){
     //return 0;
 }
 
-DEVICE_DT_INST_DEFINE(0, init, NULL, NULL, NULL, POST_KERNEL, 80, &api_iomico_lecture);
+DEVICE_DT_INST_DEFINE(0, init, NULL, &data, NULL, POST_KERNEL, 80, &api_iomico_lecture);
 

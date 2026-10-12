@@ -3,6 +3,7 @@
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
+#include "our_driver.h"
 
 /* The devicetree node identifier for the "led0" alias. */
 //#define LED_NODE DT_ALIAS(app_led)
@@ -18,7 +19,12 @@ namespace {
         auto ret1 = sensor_sample_fetch_chan(driver, SENSOR_CHAN_AMBIENT_TEMP);
         k_msleep(CONFIG_APP_HEARTBEAT_PERIOD_MS);
         auto ret = sensor_channel_get(driver, SENSOR_CHAN_AMBIENT_TEMP, &val);
-        LOG_INF("Channel ret %d", ret);
+        
+        while (1) {
+        auto ret2 = my_extension_api(driver);
+        k_msleep(CONFIG_APP_HEARTBEAT_PERIOD_MS);
+        LOG_INF("Counter: %d", ret2);
+        }
     }
 }
 int main(void)
