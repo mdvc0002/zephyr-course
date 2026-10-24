@@ -23,7 +23,7 @@ namespace {
         while (1) {
         auto ret2 = my_extension_api(driver);
         k_msleep(CONFIG_APP_HEARTBEAT_PERIOD_MS);
-        LOG_INF("Counter: %d", ret2);
+        //LOG_INF("Counter: %d", ret2);
         }
     }
 }
